@@ -25,9 +25,7 @@ createFactsList = (facts, eventList) => {
             }
         })
     })
-    factsList.forEach(fact => {
-        console.log(fact)
-    })
+    return factsList
 }
 
 module.exports = { Fact, createFactsList }

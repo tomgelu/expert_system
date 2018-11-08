@@ -39,8 +39,7 @@ parse = lines => {
     })
     lines.forEach((elem, index, tab) => {
         // Remove comments and trim
-        console.log(elem)
-        if (elem.search('#')) {
+        if (elem.search('#') != -1) {
             tab[index] = elem.substring(0, elem.search('#')).trim()
         }
         if (tab[index].search('<=>') != -1) {

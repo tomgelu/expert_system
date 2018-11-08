@@ -36,7 +36,7 @@ createEventList = rules => {
         })
         // RIGHT PART
         parts[1] = leftRight[1].split('').filter(letter =>{
-            if ((letter >= 'A' && letter <= 'Z') || letter == '!') {
+            if (letter >= 'A' && letter <= 'Z') {
                 if (neg) {
                     dependencies[1].push('!' + letter)
                     neg = false
@@ -112,5 +112,20 @@ createEventList = rules => {
     return { eventList, rulesDependencies }
 }
 
+lettersToFact = (rulesDependencies, factsList) => {
+    rulesDependencies.forEach((elem, index, tab) => {
+        tab[index].dependencies.forEach((dependency, dep_index, dep_tab) => {
+            dep_tab[dep_index] = { "fact":factsList.find(el => {
+                return (el.name == (dependency[0] == '!' ? dependency.substring(1) : dependency))
+            }), "name": dependency }
+        })
+        tab[index].consequences.forEach((dependency, dep_index, dep_tab) => {
+            dep_tab[dep_index] = { "fact":factsList.find(el => {
+                return (el.name == (dependency[0] == '!' ? dependency.substring(1) : dependency))
+            }), "name": dependency }
+        })
+    })
+}
 
-module.exports = { Rule, createEventList }
+
+module.exports = { Rule, createEventList, lettersToFact }
